@@ -1,0 +1,56 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+
+using namespace std;
+
+int main()
+{
+	ifstream coord;
+	coord.open("text1.txt", ios::in);
+	int array[8];
+	while (!coord.eof())
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			coord >> array[i];
+		}
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		cout<<array[i];
+	}
+	int maxX = array[0];
+	for (int i = 2; i < 8; i += 2)
+	{
+		if (maxX <= array[i])
+			maxX = array[i];
+	}
+
+	int minX = array[0];
+
+	for (int i = 2; i < 8; i += 2)
+	{
+		if (minX >= array[i])
+			minX = array[i];
+	}
+
+	int maxY = array[1];
+	for (int i = 3; i < 8; i += 2)
+	{
+		if (maxY <= array[i])
+			maxY = array[i];
+	}
+
+	int minY = array[1];
+
+	for (int i = 3; i < 8; i += 2)
+	{
+		if (minY >= array[i])
+			minY = array[i];
+	}
+
+	cout << "S= " << (maxX - minX)*(maxY - minY) << endl;
+
+	return 0;
+}
