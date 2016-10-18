@@ -1,0 +1,71 @@
+#include<iostream>
+#include<fstream>
+#include<cstring>
+
+using namespace std;
+
+struct Student {
+	char name[20];
+	size_t age;
+};
+
+void input_data()
+{
+	Student me;
+	int n;
+	cin >> n;
+	ofstream f("example.txt", ios::binary | ios::out);
+	for (int i = 0; i < n; i++)
+	{
+		cin.clear();
+		cin.ignore();
+		cin.getline(me.name, 20);
+		cin >> me.age;
+		f.write((const char*)&me, sizeof(Student));
+	}
+	f.close();
+	ifstream ff("example.txt", ios::binary | ios::in);
+	char name3[20];
+	cin.clear();
+	cin.ignore();
+	cin.getline(name3, 20);
+	int age2;
+	cin >> age2;
+	bool flag = false;
+	char name2[20];
+	cin.clear();
+	cin.ignore();
+	cin.getline(name2, 20);
+	while (ff.read((char*)&me, sizeof(me)))
+	{
+		if (!(strcmp(me.name, name3)) && me.age == age2)
+		{
+			int new_age;
+			cout << "Enter new age!" << endl;
+			cin >> new_age;
+			me.age = new_age;
+		}
+		if (!strcmp(me.name, name2))
+		{
+			cout << me.name << endl;
+			cout << me.age << endl;
+			flag = true;
+		}
+
+	}
+
+	if (!flag)
+	{
+		cout << "NO!" << endl;
+	}
+	
+
+	ff.close();
+}
+
+int main()
+{
+	input_data();
+
+	return 0;
+}
