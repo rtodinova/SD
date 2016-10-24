@@ -1,0 +1,115 @@
+#include<iostream>
+
+using namespace std;
+
+template<typename T>
+struct Node {
+	T data;
+	Node<T>* pNext;
+	int counterOfNodes=0;
+
+	Node(const T &dat, Node<T>* next = NULL)
+	{
+		data = dat;
+		pNext = next;
+		counterOfNodes = 1;
+	}
+
+	bool isLast()
+	{
+		return pNext == NULL;
+	}
+};
+
+template<typename T>
+bool isEmpty() const
+{
+	return !this->pFirst;
+}
+
+template<typename T>
+void addFirstElement(const T &data)
+{
+	Node<T> *pNewNode = new Node<T>(data, NULL);
+	if (pNewNode)
+	{
+		pNewNode->pNext = pFirst;
+	}
+	this->pFirst = pNewNode;
+	countOfNodes++;
+}
+
+template<typename T>
+void addAtTheEnd(const T &data)
+{
+	Node<T>* pNewNode = new Node<T>(data, NULL);
+	if (pNewNode)
+	{
+		if (this->isEmpty())
+		{
+			this->pFirst = pNewNode;
+			this->pLast = pNewNode;
+		}
+		else
+		{
+			this->pLast->pNext = pNewNode;
+			this->pLast = pNewNode;
+		}
+	}
+	counterOfNodes++;
+}
+
+template<typename T>
+void removeAtTheBeg()
+{
+	if (!this->isEmpty())
+	{
+		Node<T>* tempNode = this->pFirst;
+		this->pFirst = this->pFirst->pNext;
+		if (this->pFirst = NULL)
+		{
+			this->pLast = NULL;
+		}
+		delete tempNode;
+		counterOfNodes--;
+	}
+}
+
+template<typename T>
+void removeAtTheEnd()
+{
+	if (!this->isEmpty())
+	{
+		Node<T>* pTemp=goTo(n - 1);
+		delete pTemp->pNext;
+
+		pLast = pTemp;
+		pLast->pNext = NULL;
+		counterOfNodes--;
+	}
+}
+template<typename T>
+void insertAfter(int index, const T &data)
+{
+	Node<T>* pNodeAtIndex = goTo(index);
+	if (pNodeAtIndex)
+	{
+		Node<T>* pNewNode = new Node<T>(data, pNodeAtIndex->pNext);
+		if (pNewNode)
+		{
+			pNodeAtIndex->pNext = pNewNode;
+			if (pNodeAtIndex == this->pLast)
+			{
+				this->pLast = pNewNode;
+			}
+			counterOfNodes++;
+		}
+	}
+}
+
+/* for(int i=0; i< n-1; i++)
+{
+pTemp=pTemp->pNext;
+}
+
+function goTo*/
