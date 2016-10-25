@@ -12,7 +12,7 @@ struct Student{
 
 void changePosition(vector<Student> &students, Student &new_student, int n)
 {
-	if (n<students.size()-1)
+	if (n<students.size())
 	{
 		for (int i = students.size() - 1; i>n; i--)
 		{
