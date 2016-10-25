@@ -14,7 +14,7 @@ void changePosition(vector<Student> &students, Student &new_student, int n)
 {
 	if (n<students.size()-1)
 	{
-		for (int i = students.size() - 1; i>n; i++)
+		for (int i = students.size() - 1; i>n; i--)
 		{
 			students[i + 1] = students[i];
 		}
