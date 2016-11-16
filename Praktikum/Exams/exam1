@@ -1,0 +1,108 @@
+#include<iostream>
+#include<fstream>
+#include<list>
+#include<string>
+using namespace std;
+
+void task1(ifstream& inFile, ofstream& outFile)
+{
+	int num;
+	list<int> number;
+	while (inFile >> num)
+	{
+		number.push_back(num);
+	}
+	list<int> new_number;
+	list<int>::iterator middle = number.begin();
+	for (int i = 0; i < number.size()/2; i++)
+	{
+		middle++;
+	}
+	list<int>::iterator it_begin = number.begin();
+	for (list<int>::iterator it_end = --number.end(); it_end != middle; it_end--)
+	{
+		new_number.push_front(*it_end);
+		new_number.push_front(*it_begin);
+		it_begin++;
+	}
+	if (li.size() % 2 != 0)
+		result.push_back(*it);
+	for(list<int>::iterator it=new_number.begin(); it!=new_number.end(); ++it)
+	{
+		outFile << *it << " ";
+	}
+	
+}
+
+void task2(ifstream& inFile, ofstream& outFile)
+{
+	list<int>  number1;
+	list<int> number2;
+	string line1, line2;
+	getline(inFile, line1);
+	getline(inFile, line2);
+	for (int i = 0; i < line1.length(); i++)
+	{
+		if (line1[i] != ' ')
+		{
+			number1.push_back(line1[i]-'0');
+		}
+	}
+	for (int i = 0; i < line2.length(); i++)
+	{
+		if (line2[i] != ' ')
+		{
+			number2.push_back(line2[i]-'0');
+		}
+	}
+	
+	list<int> result;
+	list<int>::iterator it1 = number1.end();
+	list<int>::iterator it2 = number2.end();
+	it1--;
+	it2--;
+	int o = 0; 
+	while (it1 != number1.begin() && it2 != number2.begin())
+	{
+		o = o + *it1 + *it2;
+		result.push_back(o%10);
+		o = o / 10;
+		it1--;
+		it2--;
+	}
+	if (it1 == number1.begin())
+	{
+		while (it2 != number2.begin())
+		{
+			o = *it2 % 10;
+			result.push_back((*it2/10) + o);
+			it2--;
+		}
+	}
+	if (it2 == number2.begin())
+	{
+		while (it1 != number1.begin())
+		{
+			o = *it1 % 10;
+			result.push_back((*it1 / 10) + o);
+			it1--;
+		}
+	}
+	list<int>::iterator it = result.end();
+	it--;
+	while(it!=result.begin())
+	{
+		outFile << *it << " ";
+		it--;
+	} 
+}
+
+int main()
+{
+	ifstream in("input.txt", ios::in);
+	ofstream out("result.txt", ios::out | ios::app);
+	task1(in, out);
+	//task2(in, out);
+
+	return 0;
+}
