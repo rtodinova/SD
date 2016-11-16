@@ -1,0 +1,180 @@
+#include<fstream>
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+void task1(double number_double, string str, int number_int)
+{
+	ofstream file("file1.txt", ios::out);
+	file.write((const char*)&number_double, sizeof(number_double));
+	file.write((const char*)&str, sizeof(str));
+	file.write((const char*)&number_int, sizeof(number_int));
+	file.close();
+	ifstream fileR("file1.txt", ios::in);
+	int new_number_double=0;
+	string new_str="";
+	int new_number_int=0;
+	while (!fileR.eof());
+	{
+		fileR >> new_number_double;
+		fileR >> new_str;
+		fileR >> new_number_int;
+	}
+	fileR.close();
+	cout << new_number_double << " " << new_str << " " << new_number_int << endl;
+}
+
+void task2()
+{
+	double number = 0;
+	ifstream iFile("file1.text", ios::in);
+	ofstream oFile("file2.txt", ios::out);
+	while (iFile >> number)
+	{
+		oFile << number << endl;
+		cout << number << endl;
+	}
+
+	iFile.close();
+	oFile.close();
+}
+
+void task3()
+{
+	ifstream file("file1.txt", ios::in);
+	char ch;
+	while (!file.eof())
+	{
+		file.get(ch);
+			cout << ch;
+	}
+	file.close();
+}
+
+void task4()
+{
+	ifstream iFile("file1.txt", ios::in);
+	ofstream oFile("file2.txt", ios::out);
+
+	char ch;
+
+	while (iFile.get(ch))
+		oFile.put(ch);
+
+	iFile.close();
+	oFile.close();
+}
+
+void task5()
+{
+	ifstream file("file1.txt", ios::in);
+	int histogram[256];
+	int total = 0;
+	char sym;
+	for (int i = 0; i <= 255; ++i)
+		histogram[i] = 0;
+	while (!file.eof())
+	{
+		file.get(sym);
+		++histogram[(unsigned char)sym];
+		++total;
+	}
+	cout << "Total elements in the file!" << total << endl;
+	for (int i = 0; i < 256; i++)
+	{
+		if (histogram[i]!=0)
+		cout << (char)i << " " << i << " " << histogram[i] << " " << ((double)histogram[i] * 100) / total << endl;
+	}
+
+}
+
+void task6(istream& i_file)
+{
+	char sym;
+	ofstream o_file("file2.txt", ios::out);
+	while (i_file.get(sym))
+	{
+		if (sym != ' ') o_file.put(sym);
+	}
+	o_file.close();
+}
+
+void task7(ifstream& i_file)
+{
+	int row = 0, max = 0;
+	string line;
+	while (getline(i_file, line))
+	{
+		if (line.size() > max)
+		{
+			max = line.size();
+			
+		}
+
+		row++;
+	}
+
+	cout << row << "row with size " << max << endl;
+}
+
+void task8()
+{
+	ifstream f("file1.txt", ios::in);
+	ofstream f2("file2.txt", ios::out | ios::binary);
+	int arr[3];
+	while (f >> arr[0] >> arr[1] >> arr[2])
+	{
+		/*int j = 0;
+		for (int i = 1; i < 3; i++)
+		{
+			if (arr[j]>arr[i])
+				swap(arr[j], arr[i]);
+			j++;
+		}*/
+		sort(arr, arr+3);
+		//f2.write((const char*)&arr, sizeof(arr));
+		f2 << arr[0] << " "<< arr[1]<< " " << arr[2] << "  ";
+	}
+}
+void solution(int arr[3])
+{
+	ofstream file("file2.txt", ios::out | ios::app);
+	double D = arr[1] * arr[1] - 4 * arr[0] * arr[2];
+	double x1 = 0, x2 = 0;
+	if (D > 0)
+	{
+		x1 = ((-arr[1]) + sqrt(D)) / (2 * arr[0]);
+		x2 = ((-arr[1]) - sqrt(D)) / (2 * arr[0]);
+		file << x1 <<" " << x2 << endl;
+	}
+	else if (D = 0)
+	{
+		x1 = x2 = (-arr[1]) / (2 * arr[0]);
+		file << x1 << " " <<  x2 << endl;
+	}
+	else file << "NRK" << endl;
+}
+void task9()
+{
+	ifstream ifile("file1.txt", ios::in);
+	int arr[3];
+	while (ifile >> arr[0] >> arr[1] >> arr[2])
+		solution(arr);
+
+}
+int main()
+{
+	//task1(2.3, "I'm a genius", 11);
+	//task2();
+  //task3();
+  //task4();
+  //task5();
+	//ifstream i_file("file1.txt", ios::in);
+	//task6(i_file);
+	//i_file.close();
+	//task7(i_file);
+  //task8();
+	task9();
+	return 0;
+}
