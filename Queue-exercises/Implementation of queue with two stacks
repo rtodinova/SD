@@ -1,0 +1,107 @@
+#include<stack>
+#include<iostream>
+
+using namespace std;
+
+void transfer(stack<int>& in, stack<int>& out)
+{
+	while (!in.empty())
+	{
+		out.push(in.top());
+		in.pop();
+	}
+}
+
+class queue{
+	stack<int> stackIn, stackOut;
+public:
+	void push(int n)
+	{
+		stackIn.push(n);
+	}
+	void pop()
+	{
+		if (stackOut.empty())
+		{
+			transfer(stackIn, stackOut);
+		}
+
+		stackOut.pop();
+	}
+	int front()
+	{
+		if (stackOut.empty())
+		{
+			transfer(stackIn, stackOut);
+		}
+
+		return stackOut.top();
+	}
+
+	bool empty() const
+	{
+		return stackOut.empty() && stackIn.empty();
+	}
+};
+
+
+int main() {
+
+	queue q;
+
+
+
+	q.push(1);
+
+	q.push(2);
+
+
+
+	cout << q.front() << endl;
+
+	q.pop();
+
+
+
+	q.push(3);
+
+
+	cout << q.front() << endl;
+
+	q.pop();
+
+
+
+	q.push(4);
+
+	q.push(5);
+
+	q.push(6);
+
+
+
+	cout << q.front() << endl;
+
+	q.pop();
+
+
+
+	cout << q.front() << endl;
+
+	q.pop();
+
+
+
+	cout << q.front() << endl;
+
+	q.pop();
+
+
+
+	cout << q.front() << endl;
+
+
+
+	return 0;
+
+}
