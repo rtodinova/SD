@@ -1,0 +1,71 @@
+#include<fstream>
+#include<iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+
+int main()
+{
+	ifstream in("input.txt", ios::in);
+	stack<int> num1;
+	stack<int>num2;
+	string firstNumber;
+	string secondNumber;
+	getline(in, firstNumber);
+	for (int i = 0; i < firstNumber.size(); i++)
+	{
+		if (firstNumber[i] != ' ')
+		{
+			num1.push(firstNumber[i] - '0');
+		}
+	}
+	getline(in, secondNumber);
+	for (int i = 0; i < secondNumber.size(); i++)
+	{
+		if (secondNumber[i] != ' ')
+		{
+			num2.push(secondNumber[i] - '0');
+		}
+	}
+	int o = 0; 
+	stack<int> result;
+	while (!num1.empty() && !num2.empty())
+	{
+		o = num1.top() + num2.top() + o;
+		result.push(o%10);
+		o = o / 10;
+		num1.pop();	
+		num2.pop();
+	}
+
+	if (num1.empty())
+	{
+		while (!num2.empty())
+		{
+			o = num2.top() + o;
+			result.push(o%10);
+			o = o / 10;
+			num2.pop();
+		}
+	}
+	if (num2.empty())
+	{
+		while (!num1.empty())
+		{
+			o = num1.top() + o;
+			result.push(o % 10);
+			o = o / 10;
+			num1.pop();
+		}
+	}
+
+	if (o != 0) result.push(o);
+	ofstream out("output.txt", ios::out);
+	while (!result.empty())
+	{
+		out << result.top();
+		result.pop();
+	}
+
+}
