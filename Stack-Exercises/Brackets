@@ -1,0 +1,59 @@
+#include<iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+
+bool isCorrect(string str)
+{
+	stack<char> brackets;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ')' && brackets.empty())
+			return false;
+		if (str[i] == '(' && i != str.length() - 1)
+			brackets.push(str[i]);
+		if (str[i] == ')' && !brackets.empty())
+			brackets.pop();
+	}
+
+
+
+	if (brackets.empty()) return true;
+	return false;
+}
+
+int howManyAreCorrect(string str)
+{
+	stack<char> brackets;
+	int count = 0, max_count = 0;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ')' && brackets.empty())
+			count = 0;
+		if (str[i] == '(' && i != str.length() - 1)
+		{
+			brackets.push(str[i]);
+			count++;
+		}
+		if (str[i] == ')' && !brackets.empty())
+		{
+			brackets.pop();
+			count ++;
+		}
+		if (str[i] == '(' && i == str.length() - 1) count=0;
+		if (count>max_count) max_count = count;
+	}
+
+	return max_count;
+
+}
+
+int main()
+{
+	string str = "(()()(()))";
+	cout << boolalpha << isCorrect(str) << endl;
+	cout << howManyAreCorrect(str) << endl;
+	
+  return 0;
+}
