@@ -1,0 +1,94 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<stack>
+
+using namespace std;
+
+struct Neighbour{
+private:
+	string name;
+	string mobile_number;
+	string car;
+public:
+	Neighbour(string _name, string _mobile_number, string _car)
+	{
+		name = _name;
+		mobile_number = _mobile_number;
+		car = _car;
+	}
+	string get_name() const
+	{
+		return name;
+	}
+	string get_mobile_number() const
+	{
+		return mobile_number;
+	}
+	string get_car() const
+	{
+		return car;
+	}
+};
+
+void addToFile(Neighbour& neighbour, ofstream& out) 
+{
+	out << neighbour.get_name() << " " << neighbour.get_mobile_number() << " " << neighbour.get_car() << endl;
+}
+
+void addCarToParking(stack<string>& parking, string car)
+{
+	parking.push(car);
+}
+
+void search(string car) // otvarqm i zatvarqm faila vuv funkciqta, za da moje da zapochva da chete ot nachaloto na faila vseki put, kogato izvikame funkciqta
+{
+	ifstream in("db.txt", ios::in);
+	string tname, tnum, tcar;
+	while (in >> tname >> tnum >> tcar)
+	{
+		if (tcar==car)
+			cout << tname << " " << tnum << endl;
+	}
+	in.close();
+}
+
+void get_car(stack<string>& parking, string car)
+{
+	if (parking.top() == car)
+	{
+		cout << "The car is going away" << endl;
+		parking.pop();
+	}
+	else
+	{
+		cout << "There is another car.Call: " << endl;
+		search(parking.top()); 
+		cout << "He/She's coming!" << endl;
+		string temp;
+		temp = parking.top();
+		parking.pop();
+		cout << "The car is going away." << endl;
+		parking.push(temp);
+	}
+}
+
+int main()
+{
+	ofstream out("db.txt", ios::out);
+	Neighbour one = { "Ivan", "0899999999", "U456S" };
+	Neighbour two = { "Petkan", "0899999998", "W237P" };
+	Neighbour three = { "Minka", "0899999997", "R397O" };
+	addToFile(one, out);
+	addToFile(two, out);
+	addToFile(three, out);
+	out.close();
+	stack<string> parking;
+	addCarToParking(parking, "U456S");
+	addCarToParking(parking, "W237P");
+	addCarToParking(parking, "R397O");
+	get_car(parking, "W237P");
+	get_car(parking, "U456S");
+
+	return 0;
+}
