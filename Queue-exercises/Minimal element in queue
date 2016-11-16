@@ -1,0 +1,39 @@
+#include<queue>
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	queue<int> q;
+	q.push(7);
+	q.push(3);
+	q.push(8);
+	q.push(2);
+	q.push(5);
+	int min = q.front();
+	q.push(q.front());
+	q.pop();
+	for (int i = 0; i < q.size(); i++)
+	{
+		if (min>q.front())
+		{
+			min = q.front();
+		}
+		q.push(q.front());
+		q.pop();
+	}
+
+	while (min != q.front())
+	{
+		q.push(q.front());
+		q.pop();
+	}
+	q.pop();
+
+	while (!q.empty())
+	{
+		cout << q.front() << " ";
+		q.pop();
+	}
+	cout << endl;
+}
