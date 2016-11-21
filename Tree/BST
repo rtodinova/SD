@@ -26,10 +26,29 @@ private:
 	Node<T>* root;
 	void addNode(const T& value, Node<T>* &node);
 	void print(Node<T>* node);
+	T findMax(Node<T>* node);
 public:
 	void userPrint();
 	void userAddNode(const T& value);
+	T userFindMax();
 };
+
+template<typename T>
+T BST<T>::userFindMax()
+{
+	return findMax(root);
+}
+
+template<typename T>
+T BST<T>::findMax(Node<T>* node)
+{
+	Node<T>* tmpNode=node;
+	while(tmpNode->right)
+	{
+		tmpNode = tmpNode->right;
+	}
+	return tmpNode->data;
+}
 
 template<typename T>
 void BST<T>::userPrint()
