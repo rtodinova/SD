@@ -1,0 +1,92 @@
+#include<iostream>
+
+using namespace std;
+
+template<typename T>
+struct Node {
+	T data;
+	Node<T>* left;
+	Node<T>* right;
+	Node(const T& _data, Node<T>* _left, Node<T>* _right)
+	{
+		data = _data;
+		left = _left;
+		right = _right;
+	}
+	Node()
+	{
+		left = NULL;
+		right = NULL;
+	}
+};
+
+template<typename T>
+class BST {
+private:
+	Node<T>* root;
+	void addNode(const T& value, Node<T>* &node);
+	void print(Node<T>* node);
+public:
+	void userPrint();
+	void userAddNode(const T& value);
+};
+
+template<typename T>
+void BST<T>::userPrint()
+{
+	print(root);
+}
+
+template<typename T>
+void BST<T>::userAddNode(const T& value)
+{
+	addNode(value, root);
+}
+
+template<typename T>
+void BST<T>::addNode(const T& value, Node<T>* &node)
+{
+	if (node)
+	{
+		if (value == node->data)
+		{
+			return;
+		}
+
+		if (value < node->data)
+		{
+			addNode(value, node->left);
+		}
+
+		if (value > node->data)
+		{
+			addNode(value, node->right);
+		}
+	}
+	else
+	{
+		node = new Node<T>(value, NULL, NULL);
+	}
+}
+
+template<typename T>
+void BST<T>::print(Node<T>* node)
+{
+	if (node)
+	{
+		print(node->left);
+		cout << node->data << endl;
+		print(node->right);
+	}
+}
+
+int main()
+{
+	BST<int> tree;
+	tree.userAddNode(23);
+	tree.userAddNode(45);
+	tree.userAddNode(2);
+	tree.userPrint();
+
+	return 0;
+}
