@@ -1,0 +1,123 @@
+#include<iostream>
+#include<queue>
+#include<stack>
+#include<string>
+
+using namespace std;
+
+template<typename T>
+class myQueue {
+	stack<T> in;
+	stack<T> out;
+public:
+	void enqueue(const T& data)
+	{
+		in.push(data);
+	}
+	void dequeue()
+	{
+		if (out.empty() && !in.empty())
+		{
+			for (int i = 0; i < in.size(); i++)
+			{
+				out.push(in.top());
+				in.pop();
+			}
+		}
+		out.pop();
+	}
+	bool empty() const
+	{
+		return out.empty() && in.empty();
+	}
+
+	int queueSize() const
+	{
+		return in.size() + out.size();
+	}
+
+	T myFront()
+	{
+
+		if (out.empty() && !in.empty())
+		{
+			for (int i = 0; i < in.size(); i++)
+			{
+				T const& help = in.top();
+				out.push(help);
+				in.pop();
+			}
+		}
+		return out.top();
+	}
+};
+
+void task4()
+{
+	int n=5;
+	queue<string> bin;
+	bin.push("1");
+	for (int i = 0; i < n; i++)
+	{
+		string temp = bin.front();
+		string temp2 = bin.front();
+		bin.push(temp += "0");
+		bin.push(temp2 += "1");
+		cout << bin.front() << endl;
+		bin.pop();
+	}
+
+}
+
+void task5()
+{
+
+}
+
+
+int main()
+{
+/*	myQueue<int> a;
+	for (int i = 0; i < 4; i++)
+		a.enqueue(i + 1);
+	a.dequeue();
+	a.dequeue();
+	a.enqueue(5);
+	a.dequeue();
+	a.dequeue();
+	cout << a.myFront() << endl;*/
+
+/*	queue<int> q;
+	q.push(7);
+	q.push(3);
+	q.push(8);
+	q.push(2);
+	q.push(5);
+	int min = q.front();
+	q.push(q.front());
+	q.pop();
+	for (int i = 0; i < q.size(); i++)
+	{
+		if (min>q.front())
+		{
+			min = q.front();
+		}
+		q.push(q.front());
+		q.pop();
+	}
+
+	for(int i=0; i<q.size()-1;i++)
+	{
+		q.push(q.front());
+		q.pop();
+	}
+
+	cout << min << endl;
+	while (!q.empty())
+	{
+		cout << q.front() << " ";
+		q.pop();
+	}
+	cout << endl;*/
+	task4();
+}
