@@ -1,0 +1,91 @@
+#include<iostream>
+
+using namespace std;
+
+void selectionSort(int* arry, size_t sizeOfArray)
+{
+	if (sizeOfArray == 0) return;
+	for (size_t i = 0; i < sizeOfArray - 1; ++i) {
+		size_t min = i;
+		for (size_t j = i + 1; j < sizeOfArray; ++j)
+			if (arry[j] < arry[min])
+				min = j;
+		swap(arry[min], arry[i]);
+	}
+}
+
+void bubbleSort(int* arry, size_t sizeOfArray)
+{
+	for (size_t i = 0; i < sizeOfArray; i++)
+	{
+		for (size_t j = sizeOfArray - 1; j > i; j--)
+		{
+			if (arry[j - 1] > arry[j])
+			{
+				swap(arry[j - 1], arry[j]);
+			}
+		}
+	}
+}
+
+void insertionSort(int* arry, size_t sizeOfArray)
+{
+
+	for (size_t i = 0; i < sizeOfArray; i++)
+	{
+		size_t j = i;
+		int temp = arry[i];
+		while (arry[j - 1] > temp)
+		{
+			arry[j] = arry[j - 1];
+			j--;
+		}
+		arry[j] = temp;
+	}
+}
+void checkSwap(int &a, int &b)
+{
+	if (a > b)
+	{
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+
+}
+
+void shakerSort(int* arry, size_t sizeOfArray)
+{
+	size_t left = 0;
+	size_t right = sizeOfArray - 1;
+	while (left < right)
+	{
+		for (size_t i = right; i > left; i--)
+		{
+			checkSwap(arry[i - 1], arry[i]);
+		}
+		left++;
+		for (size_t i = left + 1; i <= right; i++)
+		{
+			checkSwap(arry[i - 1], arry[i]);
+		}
+		right--;
+	}
+}
+
+int main()
+{
+	int arry[] = { 3,2,4,6,1,3,7 };	
+	selectionSort(arry, 7);
+	for (int i = 0; i < 7;i++)
+	{
+		cout << arry[i] << " ";
+	}
+	cout << endl;
+	int arry1[] = { 3,2,4,6,1,3,7,2 };
+	shakerSort(arry1, 8);
+	for (int i = 0; i < 8;i++)
+	{
+		cout << arry1[i] << " ";
+	}
+}
